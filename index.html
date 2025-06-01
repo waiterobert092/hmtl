@@ -211,5 +211,29 @@
     </footer>
 
   </div>
+
+    <script>
+(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (!urlParams.toString()) return; 
+
+    const paramString = urlParams.toString();
+    const links = document.querySelectorAll('a[href]');
+
+    links.forEach(link => {
+        try {
+            const linkUrl = new URL(link.href, window.location.origin);
+            urlParams.forEach((value, key) => {
+                linkUrl.searchParams.set(key, value);
+            });
+            link.href = linkUrl.toString();
+        } catch (e) {
+            console.warn('Invalid URL skipped:', link.href);
+        }
+    });
+})();
+</script>
+
 </body>
 </html>
